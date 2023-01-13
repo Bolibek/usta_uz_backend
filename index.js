@@ -7,7 +7,7 @@ const PORT = 8080;
 const { MONGO_URI } = require("./config/key");
 
 require("./models/user");
-require("./models/invoice");
+require("./models/employerpost");
 
 const corsOptions = {
 	origin: "*",
@@ -23,7 +23,7 @@ mongoose.connect(MONGO_URI);
 
 app.use(express.json());
 app.use(require("./routes/auth"));
-app.use(require("./routes/invoice"));
+app.use(require("./routes/employerpost"));
 app.use(require("./routes/user"));
 
 if (process.env.ENVIRONMENT === "production") {

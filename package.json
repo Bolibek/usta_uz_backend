@@ -1,9 +1,37 @@
 {
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "express": "^4.18.2",
-    "jsonwebtoken": "^9.0.0",
-    "mongoose": "^6.8.2",
-    "uuid": "^9.0.0"
-  }
+	"name": "usta_uz_backend",
+	"version": "1.0.0",
+	"main": "index.js",
+	"scripts": {
+		"start": "node index.js",
+		"dev": "nodemon index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Bolibek/usta_uz_backend.git"
+	},
+	"keywords": [
+		"mongo",
+		"express",
+		"react",
+		"node"
+	],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Bolibek/usta_uz_backend/issues"
+	},
+	"homepage": "https://github.com/Bolibek/usta_uz_backend#readme",
+	"description": "",
+	"dependencies": {
+		"bcryptjs": "^2.4.3",
+		"cors": "^2.8.5",
+		"express": "^4.18.2",
+		"jsonwebtoken": "^9.0.0",
+		"mongoose": "^6.8.2",
+		"uuid": "^9.0.0"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.20"
+	}
 }
