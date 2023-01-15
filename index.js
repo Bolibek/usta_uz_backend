@@ -8,6 +8,7 @@ const { MONGO_URI } = require("./config/key");
 
 require("./models/user");
 require("./models/employerpost");
+require("./models/workerpost")
 
 const corsOptions = {
 	origin: "*",
@@ -24,6 +25,7 @@ mongoose.connect(MONGO_URI);
 app.use(express.json());
 app.use(require("./routes/auth"));
 app.use(require("./routes/employerpost"));
+app.use(require("./routes/workerpost"));
 app.use(require("./routes/user"));
 
 if (process.env.ENVIRONMENT === "production") {
