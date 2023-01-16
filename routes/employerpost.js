@@ -26,14 +26,15 @@ const login = require("../middleware/login");
 
 router.post("/createemployerpost", login, async (req, res) => {
 	console.log(req.body);
-	let employee
-	await User.findOne({ _id: req.user._id })
-			.then((savedUser) => {
-				employee = savedUser
-			})
+	let employee;
+	await User.findOne({ _id: req.user._id }).then((savedUser) => {
+		employee = savedUser;
+	});
 	try {
 		const {
 			id,
+			createdAt,
+			lifeStamp,
 			jobName,
 			category,
 			categoryType,
@@ -50,13 +51,9 @@ router.post("/createemployerpost", login, async (req, res) => {
 			extraConditions,
 		} = req.body;
 
-			// !startDate ||
-			// !comingHours ||
-		if (
-			!jobName ||
-			!employerAddress ||
-			!phoneNumber
-		) {
+		// !startDate ||
+		// !comingHours ||
+		if (!jobName || !employerAddress || !phoneNumber) {
 			return res
 				.status(422)
 				.json({ error: "Please fill in all required fields." });
@@ -64,6 +61,8 @@ router.post("/createemployerpost", login, async (req, res) => {
 		const employerPost = new EmployerPost({
 			id,
 			status: "created",
+			createdAt,
+			lifeStamp,
 			userName: employee.firstName + " " + employee.lastName,
 			jobName,
 			wage,
@@ -74,7 +73,7 @@ router.post("/createemployerpost", login, async (req, res) => {
 			category,
 			categoryType,
 			material,
-			photoLinks,//: photoLinks? photoLinks : "https://images.unsplash.com/photo-1590486803833-1c5dc8ddd4c8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+			photoLinks: photoLinks? photoLinks : "https://images.unsplash.com/photo-1590486803833-1c5dc8ddd4c8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
 			extraInfo,
 			startDate,
 			comingHours,
