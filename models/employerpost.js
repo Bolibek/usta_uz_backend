@@ -3,6 +3,8 @@ const { Schema, model } = require("mongoose");
 const employerPostSchema = new Schema({
 	id: String,
 	status: String,
+	createdAt: String,
+	lifeStamp: String,
 	userName: String,
 	jobName: String,
 	section: String,
