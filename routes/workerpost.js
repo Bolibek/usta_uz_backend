@@ -5,6 +5,15 @@ const WorkerPost = mongoose.model("WorkerPost");
 const User = mongoose.model("User");
 const login = require("../middleware/login");
 
+router.get("/workerposts", login, async (req, res) => {
+	await WorkerPost.find({})
+		.then((workerPosts) => {
+			res.json(workerPosts);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+});
 // router.get("/invoice", login, (req, res) => {
 // 	Invoice.find({ userId: req.user._id })
 // 		.then((invoice) => {
@@ -66,7 +75,9 @@ router.post("/createworkerpost", login, async (req, res) => {
 			category,
 			categoryType,
 			material,
-			photoLinks: photoLinks? photoLinks : "https://images.unsplash.com/photo-1590486803833-1c5dc8ddd4c8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+			photoLinks: photoLinks
+				? photoLinks
+				: "https://images.unsplash.com/photo-1590486803833-1c5dc8ddd4c8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
 			extraSkills,
 			startDate,
 			comingHours,
