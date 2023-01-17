@@ -5,6 +5,16 @@ const EmployerPost = mongoose.model("EmployerPost");
 const User = mongoose.model("User");
 const login = require("../middleware/login");
 
+router.get("/employerposts", login, async (req, res) => {
+	await EmployerPost.find({})
+		.then((employerPosts) => {
+			res.json(employerPosts);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+});
+
 // router.get("/invoice", login, (req, res) => {
 // 	Invoice.find({ userId: req.user._id })
 // 		.then((invoice) => {
