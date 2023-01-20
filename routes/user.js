@@ -6,7 +6,7 @@ const User = mongoose.model("User");
 
 router.get("/user/:userId", login, (req, res) => {
 	User.findOne({ _id: req.params.userId })
-		.select("-password -_id -__v")
+		.select("-password -__v")
 		.then((user) => {
 			res.json(user);
 		})
@@ -18,7 +18,6 @@ router.put("/user/:userId", login, (req, res) => {
 	const {
 		firstName,
 		lastName,
-		backgroundImage,
 		profileImage,
 	} = req.body;
 	User.findByIdAndUpdate(
@@ -26,7 +25,6 @@ router.put("/user/:userId", login, (req, res) => {
 		{
 			firstName,
 			lastName,
-			backgroundImage,
 			profileImage,
 		},
 		{ new: true }
