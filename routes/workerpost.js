@@ -14,24 +14,16 @@ router.get("/workerposts", login, async (req, res) => {
 			console.log(err);
 		});
 });
-// router.get("/invoice", login, (req, res) => {
-// 	Invoice.find({ userId: req.user._id })
-// 		.then((invoice) => {
-// 			res.json(invoice);
-// 		})
-// 		.catch((err) => {
-// 			console.log(err);
-// 		});
-// });
-// router.get("/invoice/:invoiceId", login, (req, res) => {
-// 	Invoice.findOne({ id: req.params.invoiceId })
-// 		.then((invoice) => {
-// 			res.json(invoice);
-// 		})
-// 		.catch((err) => {
-// 			console.log(err);
-// 		});
-// });
+router.get("/posts/:postId",  login,async (req, res) => {
+	await WorkerPost.findOne({ id: req.params.postId })
+		.then((post) => {
+			res.json(post);
+			console.log(post);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+});
 
 router.post("/createworkerpost", login, async (req, res) => {
 	console.log(req.body);
