@@ -16,6 +16,7 @@ const employerPostSchema = new Schema({
 	startDate: String,
 	comingHours: String,
 	wage: String,
+	city: String,
 	employerAddress: String,
 	orientating: String,
 	phoneNumber: String,

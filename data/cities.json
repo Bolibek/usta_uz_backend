@@ -1,0 +1,16 @@
+{
+	"cities": [
+		["tashkent", "Tashkent", "Ташкент", "Toshkent"],
+		["samarkand", "Samarkand", "Самарканд", "Samarqand"],
+		["bukhara", "Bukhara", "Бухара", "Buxoro"],
+		["khvarezm", "Khvarezm", "Хорезм", "Xorazm"],
+		["andijan", "Andijan", "Андижан", "Andijon"],
+		["fergana", "Fergana", "Фергана", "Farg'ona"],
+		["namangan", "Namangan", "Наманган", "Namangan"],
+		["qarshi", "Qarshi", "Карши", "Qarshi"],
+		["termiz", "Termiz", "Термез", "Termiz"],
+		["navai", "Navai", "Наваи", "Navoiy"],
+		["jizzakh", "Jizzakh", "Джизак", "Jizzax"],
+		["gulistan", "Gulistan", "Гулистан", "Guliston"]
+	]
+}
