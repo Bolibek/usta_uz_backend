@@ -53,6 +53,7 @@ router.post("/createworkerpost", login, async (req, res) => {
 			comingHours,
 			wage,
 			phoneNumber,
+			city,
 			section,
 			photoLinks,
 		} = req.body;
@@ -83,6 +84,7 @@ router.post("/createworkerpost", login, async (req, res) => {
 			comingHours,
 			wage,
 			phoneNumber,
+			city,
 			userId: req.user._id,
 		});
 

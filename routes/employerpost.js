@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const EmployerPost = mongoose.model("EmployerPost");
 const User = mongoose.model("User");
 const login = require("../middleware/login");
+const data = require("../data/cities.json");
+
 
 router.get("/employerposts", login, async (req, res) => {
 	await EmployerPost.find({})
@@ -36,6 +38,7 @@ router.get("/employerposts", login, async (req, res) => {
 
 router.post("/createemployerpost", login, async (req, res) => {
 	console.log(req.body);
+
 	let employee;
 	await User.findOne({ _id: req.user._id }).then((savedUser) => {
 		employee = savedUser;
@@ -54,13 +57,19 @@ router.post("/createemployerpost", login, async (req, res) => {
 			comingHours,
 			wage,
 			phoneNumber,
+			city,
 			employerAddress,
 			orientating,
 			section,
 			photoLinks,
 			extraConditions,
 		} = req.body;
-
+    let checkedCity
+		data.cities.map(cityArr => {
+			if(cityArr.includes(city)){
+				checkedCity = cityArr[0]
+			}
+		})
 		// !startDate ||
 		// !comingHours ||
 		if (!jobName || !employerAddress || !phoneNumber) {
@@ -77,6 +86,7 @@ router.post("/createemployerpost", login, async (req, res) => {
 			jobName,
 			wage,
 			phoneNumber,
+			city: checkedCity,
 			employerAddress,
 			orientating,
 			section,

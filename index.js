@@ -27,6 +27,7 @@ app.use(require("./routes/auth"));
 app.use(require("./routes/employerpost"));
 app.use(require("./routes/workerpost"));
 app.use(require("./routes/userposts"));
+app.use(require("./routes/cityposts"));
 app.use(require("./routes/user"));
 
 if (process.env.ENVIRONMENT === "production") {

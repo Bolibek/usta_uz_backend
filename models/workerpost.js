@@ -17,6 +17,7 @@ const workerPostSchema = new Schema({
 	comingHours: String,
 	wage: String,
 	phoneNumber: String,
+	city: String,
 	userId: {
 		type: Schema.Types.ObjectId,
 		ref: "User",
