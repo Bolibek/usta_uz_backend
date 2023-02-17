@@ -6,13 +6,39 @@ const WorkerPost = mongoose.model("WorkerPost");
 const login = require("../middleware/login");
 const data = require("../data/cities.json");
 
-router.get("/cityposts:city", login, async (req, res) => {
+router.get("/cityposts/:city", login, async (req, res) => {
 	const targetCity = req.params.city;
-	console.log("2q34" + targetCity);
-	await EmployerPost.find({ city: req.params.city })
+	await EmployerPost.find({ city: targetCity })
+		.then(async (employerPosts) => {
+			await WorkerPost.find({ city: targetCity })
+				.then((workerPosts) => {
+					const allPosts = [...workerPosts, ...employerPosts];
+					res.json(allPosts);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+			// res.json(employerPosts);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+});
+router.get("/employercityposts/:city", login, async (req, res) => {
+	const targetCity = req.params.city;
+	await EmployerPost.find({ city: targetCity })
 		.then((employerPosts) => {
-			// console.log(employerPosts)
 			res.json(employerPosts);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+});
+router.get("/workercityposts/:city", login, async (req, res) => {
+	const targetCity = req.params.city;
+	await WorkerPost.find({ city: targetCity })
+		.then((workerPosts) => {
+			res.json(workerPosts);
 		})
 		.catch((err) => {
 			console.log(err);
