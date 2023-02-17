@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const WorkerPost = mongoose.model("WorkerPost");
 const User = mongoose.model("User");
 const login = require("../middleware/login");
+const data = require("../data/cities.json");
 
 router.get("/workerposts", login, async (req, res) => {
 	await WorkerPost.find({})
@@ -49,7 +50,12 @@ router.post("/createworkerpost", login, async (req, res) => {
 			section,
 			photoLinks,
 		} = req.body;
-
+		let checkedCity;
+		data.cities.map((cityArr) => {
+			if (cityArr.includes(city)) {
+				checkedCity = cityArr[0];
+			}
+		});
 		// !startDate ||
 		// !comingHours ||
 		if (!serviceName || !phoneNumber) {
@@ -76,7 +82,7 @@ router.post("/createworkerpost", login, async (req, res) => {
 			comingHours,
 			wage,
 			phoneNumber,
-			city,
+			city: checkedCity,
 			userId: req.user._id,
 		});
 
