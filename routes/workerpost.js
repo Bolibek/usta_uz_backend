@@ -15,7 +15,7 @@ router.get("/workerposts", login, async (req, res) => {
 			console.log(err);
 		});
 });
-router.get("/posts/:postId",  login,async (req, res) => {
+router.get("/posts/:postId", login, async (req, res) => {
 	await WorkerPost.findOne({ id: req.params.postId })
 		.then((post) => {
 			res.json(post);
@@ -27,11 +27,6 @@ router.get("/posts/:postId",  login,async (req, res) => {
 });
 
 router.post("/createworkerpost", login, async (req, res) => {
-	console.log(req.body);
-	let worker;
-	await User.findOne({ _id: req.user._id }).then((savedUser) => {
-		worker = savedUser;
-	});
 	try {
 		const {
 			id,
@@ -47,7 +42,6 @@ router.post("/createworkerpost", login, async (req, res) => {
 			wage,
 			phoneNumber,
 			city,
-			section,
 			photoLinks,
 		} = req.body;
 		let checkedCity;
@@ -56,21 +50,21 @@ router.post("/createworkerpost", login, async (req, res) => {
 				checkedCity = cityArr[0];
 			}
 		});
-		// !startDate ||
-		// !comingHours ||
 		if (!serviceName || !phoneNumber) {
 			return res
 				.status(422)
 				.json({ error: "Please fill in all required fields." });
 		}
+
+		const workman = await User.findOne({ _id: req.user._id });
 		const employerPost = new WorkerPost({
 			id,
 			status: "created",
 			createdAt,
 			lifeStamp,
-			userName: worker.firstName + " " + worker.lastName,
+			userName: workman.firstName + " " + workman.lastName,
+			profileImage: workman.profileImage,
 			serviceName,
-			section,
 			category,
 			categoryType,
 			material,
