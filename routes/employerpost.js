@@ -6,7 +6,6 @@ const User = mongoose.model("User");
 const login = require("../middleware/login");
 const data = require("../data/cities.json");
 
-
 router.get("/employerposts", login, async (req, res) => {
 	await EmployerPost.find({})
 		.then((employerPosts) => {
@@ -39,10 +38,6 @@ router.get("/employerposts", login, async (req, res) => {
 router.post("/createemployerpost", login, async (req, res) => {
 	console.log(req.body);
 
-	let employee;
-	await User.findOne({ _id: req.user._id }).then((savedUser) => {
-		employee = savedUser;
-	});
 	try {
 		const {
 			id,
@@ -60,16 +55,15 @@ router.post("/createemployerpost", login, async (req, res) => {
 			city,
 			employerAddress,
 			orientating,
-			section,
 			photoLinks,
 			extraConditions,
 		} = req.body;
-    let checkedCity
-		data.cities.map(cityArr => {
-			if(cityArr.includes(city)){
-				checkedCity = cityArr[0]
+		let checkedCity;
+		data.cities.map((cityArr) => {
+			if (cityArr.includes(city)) {
+				checkedCity = cityArr[0];
 			}
-		})
+		});
 		// !startDate ||
 		// !comingHours ||
 		if (!jobName || !employerAddress || !phoneNumber) {
@@ -77,23 +71,26 @@ router.post("/createemployerpost", login, async (req, res) => {
 				.status(422)
 				.json({ error: "Please fill in all required fields." });
 		}
+		const employee = await User.findOne({ _id: req.user._id })
 		const employerPost = new EmployerPost({
 			id,
 			status: "created",
 			createdAt,
 			lifeStamp,
 			userName: employee.firstName + " " + employee.lastName,
+			profileImage: employee.profileImage,
 			jobName,
 			wage,
 			phoneNumber,
 			city: checkedCity,
 			employerAddress,
 			orientating,
-			section,
 			category,
 			categoryType,
 			material,
-			photoLinks: photoLinks? photoLinks : "https://images.unsplash.com/photo-1590486803833-1c5dc8ddd4c8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+			photoLinks: photoLinks
+				? photoLinks
+				: "https://images.unsplash.com/photo-1590486803833-1c5dc8ddd4c8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
 			extraInfo,
 			startDate,
 			comingHours,
