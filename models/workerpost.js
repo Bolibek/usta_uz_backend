@@ -3,6 +3,8 @@ const { Schema, model } = require("mongoose");
 const workerPostSchema = new Schema({
 	id: String,
 	status: String,
+	rating: Number,
+	rater: Number,
 	createdAt: String,
 	lifeStamp: String,
 	userName: String,
