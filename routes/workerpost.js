@@ -60,6 +60,8 @@ router.post("/createworkerpost", login, async (req, res) => {
 		const employerPost = new WorkerPost({
 			id,
 			status: "created",
+			rating: 0,
+			rater: 0,
 			createdAt,
 			lifeStamp,
 			userName: workman.firstName + " " + workman.lastName,
