@@ -9,8 +9,6 @@ const employerPostSchema = new Schema({
 	profileImage: String,
 	jobName: String,
 	category: String,
-	categoryType: String,
-	material: String,
 	photoLinks: String,
 	extraInfo: String,
 	startDate: String,
@@ -21,6 +19,7 @@ const employerPostSchema = new Schema({
 	orientating: String,
 	phoneNumber: String,
 	extraConditions: String,
+	postType: String,
 	userId: {
 		type: Schema.Types.ObjectId,
 		ref: "User",

@@ -45,8 +45,6 @@ router.post("/createemployerpost", login, async (req, res) => {
 			lifeStamp,
 			jobName,
 			category,
-			categoryType,
-			material,
 			extraInfo,
 			startDate,
 			comingHours,
@@ -58,20 +56,13 @@ router.post("/createemployerpost", login, async (req, res) => {
 			photoLinks,
 			extraConditions,
 		} = req.body;
-		let checkedCity;
-		data.cities.map((cityArr) => {
-			if (cityArr.includes(city)) {
-				checkedCity = cityArr[0];
-			}
-		});
-		// !startDate ||
-		// !comingHours ||
+		
 		if (!jobName || !employerAddress || !phoneNumber) {
 			return res
 				.status(422)
 				.json({ error: "Please fill in all required fields." });
 		}
-		const employee = await User.findOne({ _id: req.user._id })
+		const employee = await User.findOne({ _id: req.user._id });
 		const employerPost = new EmployerPost({
 			id,
 			status: "created",
@@ -82,12 +73,10 @@ router.post("/createemployerpost", login, async (req, res) => {
 			jobName,
 			wage,
 			phoneNumber,
-			city: checkedCity,
+			city,
 			employerAddress,
 			orientating,
 			category,
-			categoryType,
-			material,
 			photoLinks: photoLinks
 				? photoLinks
 				: "https://images.unsplash.com/photo-1590486803833-1c5dc8ddd4c8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
@@ -95,6 +84,7 @@ router.post("/createemployerpost", login, async (req, res) => {
 			startDate,
 			comingHours,
 			extraConditions,
+			postType: "employer",
 			userId: req.user._id,
 		});
 
