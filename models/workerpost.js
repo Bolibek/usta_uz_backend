@@ -11,8 +11,6 @@ const workerPostSchema = new Schema({
 	profileImage: String,
 	jobName: String,
 	category: String,
-	categoryType: String,
-	material: String,
 	photoLinks: String,
 	extraSkills: String,
 	startDate: String,
@@ -20,6 +18,7 @@ const workerPostSchema = new Schema({
 	wage: String,
 	phoneNumber: String,
 	city: String,
+	postType: String,
 	userId: {
 		type: Schema.Types.ObjectId,
 		ref: "User",

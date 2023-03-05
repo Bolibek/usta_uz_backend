@@ -34,8 +34,6 @@ router.post("/createworkerpost", login, async (req, res) => {
 			lifeStamp,
 			serviceName,
 			category,
-			categoryType,
-			material,
 			extraSkills,
 			startDate,
 			comingHours,
@@ -44,12 +42,7 @@ router.post("/createworkerpost", login, async (req, res) => {
 			city,
 			photoLinks,
 		} = req.body;
-		let checkedCity;
-		data.cities.map((cityArr) => {
-			if (cityArr.includes(city)) {
-				checkedCity = cityArr[0];
-			}
-		});
+		
 		if (!serviceName || !phoneNumber) {
 			return res
 				.status(422)
@@ -68,8 +61,6 @@ router.post("/createworkerpost", login, async (req, res) => {
 			profileImage: workman.profileImage,
 			serviceName,
 			category,
-			categoryType,
-			material,
 			photoLinks: photoLinks
 				? photoLinks
 				: "https://images.unsplash.com/photo-1590486803833-1c5dc8ddd4c8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
@@ -78,7 +69,8 @@ router.post("/createworkerpost", login, async (req, res) => {
 			comingHours,
 			wage,
 			phoneNumber,
-			city: checkedCity,
+			city,
+			postType: "worker",
 			userId: req.user._id,
 		});
 
