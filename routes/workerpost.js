@@ -2,6 +2,7 @@ const { Router } = require("express");
 const router = Router();
 const mongoose = require("mongoose");
 const WorkerPost = mongoose.model("WorkerPost");
+const EmployerPost = mongoose.model("EmployerPost");
 const User = mongoose.model("User");
 const login = require("../middleware/login");
 const data = require("../data/cities.json");
@@ -15,16 +16,25 @@ router.get("/workerposts", login, async (req, res) => {
 			console.log(err);
 		});
 });
-router.get("/posts/:postId", login, async (req, res) => {
-	await WorkerPost.findOne({ id: req.params.postId })
-		.then((post) => {
-			res.json(post);
-			console.log(post);
-		})
-		.catch((err) => {
-			console.log(err);
-		});
-});
+// router.get("/posts/worker/:postId", login, async (req, res) => {
+// 	await WorkerPost.findOne({ id: req.params.postId })
+// 		.then((post) => {
+// 			res.json(post);
+// 			console.log(post);
+// 		})
+// 		.catch((err) => {
+// 			console.log(err);
+// 		});
+// });
+// router.get("/posts/job/:postId", login, async (req, res) => {
+// 	await EmployerPost.findOne({ id: req.params.postId })
+// 		.then((post) => {
+// 			res.json(post);
+// 		})
+// 		.catch((err) => {
+// 			console.log(err);
+// 		});
+// });
 
 router.post("/createworkerpost", login, async (req, res) => {
 	try {
