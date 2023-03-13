@@ -5,38 +5,38 @@ const EmployerPost = mongoose.model("EmployerPost");
 const WorkerPost = mongoose.model("WorkerPost");
 const User = mongoose.model("User");
 const login = require("../middleware/login");
-const data = require("../data/cities.json");
 
 router.get("/allposts", login, async (req, res) => {
 	const employerPosts = await EmployerPost.find({});
 	const workerPosts = await WorkerPost.find({});
-  const mixedData = [...employerPosts, ...workerPosts]
-  const orderedData = mixedData.sort(
-			(a, b) =>
-				Number(a.lifeStamp.split(",").join("")) -
-				Number(b.lifeStamp.split(",").join(""))
-		);
+	const mixedData = [...employerPosts, ...workerPosts];
+	const orderedData = mixedData.sort(
+		(a, b) =>
+			Number(a.lifeStamp.split(",").join("")) -
+			Number(b.lifeStamp.split(",").join(""))
+	);
 	try {
 		res.json({
-      allPosts: orderedData,
-      employerPosts,
-      workerPosts
-    });
+			allPosts: orderedData,
+			employerPosts,
+			workerPosts,
+		});
 	} catch (e) {
 		console.log(e);
 	}
 });
 
-// router.get("/invoice/:invoiceId", login, (req, res) => {
-// 	Invoice.findOne({ id: req.params.invoiceId })
-// 		.then((invoice) => {
-// 			res.json(invoice);
-// 		})
-// 		.catch((err) => {
-// 			console.log(err);
-// 		});
-// });
-
-
+router.get("/posts/:postId", login, async (req, res) => {
+	const employerPost = await EmployerPost.findOne({ id: req.params.postId });
+	const workerPost = await WorkerPost.findOne({ id: req.params.postId });
+	const targetPost = employerPost ? employerPost : workerPost;
+	const user = await User.findById({ _id: targetPost.userId });
+	try {
+		console.log(user);
+		res.json({ details: targetPost, user: user });
+	} catch (e) {
+		console.log(e);
+	}
+});
 
 module.exports = router;
