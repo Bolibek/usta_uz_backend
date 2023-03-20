@@ -100,65 +100,65 @@ router.post("/createworkerpost", login, async (req, res) => {
 	}
 });
 
-// router.put("/invoice/:invoiceId", login, (req, res) => {
-// 	const {
-// 		status,
-// 		paymentDue,
-// 		paymentTerms,
-// 		clientAddress,
-// 		clientEmail,
-// 		clientName,
-// 		senderAddress,
-// 		description,
-// 		items,
-// 		userId,
-// 	} = req.body;
-// 	let total = null;
+router.put("/workerposts/:invoiceId", login, (req, res) => {
+	const {
+		status,
+		paymentDue,
+		paymentTerms,
+		clientAddress,
+		clientEmail,
+		clientName,
+		senderAddress,
+		description,
+		items,
+		userId,
+	} = req.body;
+	let total = null;
 
-// 	items.forEach((item) => {
-// 		total = total + item.total;
-// 	});
-// 	Invoice.findByIdAndUpdate(
-// 		req.body._id,
-// 		{
-// 			status,
-// 			paymentDue,
-// 			paymentTerms,
-// 			clientAddress,
-// 			clientEmail,
-// 			clientName,
-// 			senderAddress,
-// 			description,
-// 			items,
-// 			total,
-// 			userId,
-// 		},
-// 		{
-// 			new: true,
-// 		}
-// 	).exec((err, result) => {
-// 		if (err) {
-// 			return res.status(422).json({ error: err });
-// 		} else {
-// 			res.json(result);
-// 		}
-// 	});
-// });
+	items.forEach((item) => {
+		total = total + item.total;
+	});
+	Invoice.findByIdAndUpdate(
+		req.body._id,
+		{
+			status,
+			paymentDue,
+			paymentTerms,
+			clientAddress,
+			clientEmail,
+			clientName,
+			senderAddress,
+			description,
+			items,
+			total,
+			userId,
+		},
+		{
+			new: true,
+		}
+	).exec((err, result) => {
+		if (err) {
+			return res.status(422).json({ error: err });
+		} else {
+			res.json(result);
+		}
+	});
+});
 
-// router.delete("/invoice/:invoiceId", login, (req, res) => {
-// 	Invoice.findOne({ id: req.params.invoiceId }).exec((err, invoice) => {
-// 		if (err || !invoice) {
-// 			return res.status(422).json({ error: err });
-// 		}
-// 		if (invoice.id.toString() === req.params.invoiceId) {
-// 			invoice
-// 				.remove()
-// 				.then((result) => {
-// 					res.json(result);
-// 				})
-// 				.catch((err) => console.log(err));
-// 		}
-// 	});
-// });
+router.delete("/workerposts/:postId", login, (req, res) => {
+	Invoice.findOne({ id: req.params.invoiceId }).exec((err, invoice) => {
+		if (err || !invoice) {
+			return res.status(422).json({ error: err });
+		}
+		if (invoice.id.toString() === req.params.invoiceId) {
+			invoice
+				.remove()
+				.then((result) => {
+					res.json(result);
+				})
+				.catch((err) => console.log(err));
+		}
+	});
+});
 
 module.exports = router;

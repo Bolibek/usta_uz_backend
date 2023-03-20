@@ -7,6 +7,7 @@ const workerPostSchema = new Schema({
 	rater: Number,
 	createdAt: String,
 	lifeStamp: String,
+	serviceName: String,
 	userName: String,
 	profileImage: String,
 	jobName: String,
